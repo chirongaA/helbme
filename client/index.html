@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HELBme - Stay Safe from Smishing Scams</title>
+
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="assets/css/style.css" />
+
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#4A90E2",
+            secondary: "#50E3C2",
+            "background-light": "#F5F5F5",
+            "background-dark": "#1a1a1a",
+            "text-light": "#333333",
+            "text-dark": "#F5F5F5",
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+          borderRadius: {
+            DEFAULT: "0.5rem",
+            lg: "0.75rem",
+            xl: "1rem",
+            full: "9999px",
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+  <!-- HEADER -->
+  <header class="sticky top-0 z-20 bg-[#C2E2FA] dark:bg-background-dark/80 backdrop-blur-sm shadow-sm">
+    <div class="container mx-auto px-4 flex h-16 items-center justify-between">
+      <div class="flex items-center">
+        <span class="material-symbols-outlined text-primary text-3xl mr-2">lock</span>
+        <span class="text-xl font-bold">HELBme</span>
+      </div>
+
+      <!-- Hamburger Icon -->
+      <button id="menu-toggle" class="p-2 rounded-md hover:bg-primary/10 focus:outline-none">
+        <span class="material-symbols-outlined text-3xl text-primary">menu</span>
+      </button>
+    </div>
+
+    <!-- Dropdown Menu -->
+    <nav id="mobile-menu" class="hidden absolute right-4 top-16 bg-white dark:bg-slate-800 rounded-lg shadow-lg w-48 py-2">
+      <a href="index.html" class="block px-4 py-2 text-sm text-text-light dark:text-text-dark hover:bg-primary/10"> Home</a>
+      <a href="upload.html" class="block px-4 py-2 text-sm text-text-light dark:text-text-dark hover:bg-primary/10"> Upload</a>
+      <a href="about.html" class="block px-4 py-2 text-sm text-text-light dark:text-text-dark hover:bg-primary/10"> About</a>
+      <a href="result.html" class="block px-4 py-2 text-sm text-text-light dark:text-text-dark hover:bg-primary/10"> Results</a>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow">
+    <!-- Hero Section -->
+    <section class="flex flex-col gap-10 px-4 py-16 md:flex-row md:items-center md:gap-12">
+      <div class="flex flex-col gap-6 md:w-1/2 text-center md:text-left">
+        <h1 class="text-4xl md:text-6xl font-black leading-tight text-text-light dark:text-text-dark">
+          Stay Safe from Smishing Scams
+        </h1>
+        <h2 class="text-2xl md:text-3xl font-bold text-text-light/80 dark:text-text-dark/80">
+          Security for Education.
+        </h2>
+        <p class="text-lg md:text-xl text-text-light/80 dark:text-text-dark/80">
+          Upload a screenshot of a suspicious message, and we'll analyze it for you.
+        </p>
+        <a href="upload.html" class="btn-primary mx-auto md:mx-0">Check a Message Now</a>
+      </div>
+      <div class="flex justify-center md:w-1/2">
+        <img src="assets/images/helb-high-resolution-logo.png"
+             alt="HELB logo"
+             class="rounded-xl shadow-lg w-full max-w-md" />
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="bg-background-light dark:bg-background-dark py-16 sm:py-24">
+      <div class="container mx-auto px-4 text-center">
+        <h1 class="text-3xl sm:text-4xl font-bold text-text-light dark:text-text-dark mb-4">How it Works</h1>
+        <p class="text-lg text-text-light/80 dark:text-text-dark/80 mb-12">
+          Our AI-powered tool makes it simple to detect smishing scams. Here's how:
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="info-card">
+            <span class="material-symbols-outlined text-4xl mb-2">upload_file</span>
+            <h2>Upload</h2>
+            <p>Upload a screenshot of the suspicious message.</p>
+          </div>
+
+          <div class="info-card">
+            <span class="material-symbols-outlined text-4xl mb-2">analytics</span>
+            <h2>Analyze</h2>
+            <p>Our AI will analyze the message for scam indicators.</p>
+          </div>
+
+          <div class="info-card">
+            <span class="material-symbols-outlined text-4xl mb-2">verified_user</span>
+            <h2>Get Results</h2>
+            <p>Receive an instant report on the likelihood of a scam.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="bg-[#FFFD8F] dark:bg-primary/10 py-8 sm:py-24 text-center">
+      <h1 class="text-2xl sm:text-4xl font-bold text-text-light dark:text-text-dark mb-8">
+        Join thousands of users who have protected themselves from scams.
+      </h1>
+      <a href="upload.html" class="btn-primary">Check a Message Now</a>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#FFFD8F] dark:bg-background-dark border-t border-black/5 dark:border-white/5 py-2">
+    <div class="container mx-auto text-center">
+      <div class="flex justify-center gap-6 mb-4">
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Contact</a>
+      </div>
+      <p class="text-text-light/50 dark:text-text-dark/50 text-sm">© 2025 HELBme</p>
+    </div>
+  </footer>
+
+  <!-- JS Scripts -->
+  <script src="assets/js/menu.js"></script>
+</body>
+</html>

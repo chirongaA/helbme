@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Analysis Result - HELBme</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#1193d4",
+            background: "#f6f7f8",
+            safe: "#28a745",
+            scam: "#dc3545",
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+
+<body class="bg-background font-display text-[#0d171b] flex flex-col min-h-screen">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between p-4 bg-[#C2E2FA] sticky top-0 z-10 border-b border-gray-200">
+    <h2 class="text-lg font-bold flex-1 text-center">Analysis Result</h2>
+    <div class="relative">
+      <span id="menuIcon" class="material-symbols-outlined cursor-pointer text-[28px]">menu</span>
+      <div id="menu" class="hidden absolute right-0 mt-2 w-32 bg-[#E6F3FC] rounded-lg shadow-md">
+        <a href="index.html" class="block px-4 py-2 text-sm hover:bg-primary hover:text-white rounded-t-lg">Home</a>
+        <a href="upload.html" class="block px-4 py-2 text-sm hover:bg-primary hover:text-white">Upload</a>
+        <a href="about.html" class="block px-4 py-2 text-sm hover:bg-primary hover:text-white rounded-b-lg">About</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-grow px-5 py-8 text-center">
+    <div class="flex flex-col items-center">
+      <div class="flex items-center justify-center w-20 h-20 bg-scam/10 rounded-full mb-4">
+        <span class="material-symbols-outlined text-4xl text-scam">warning</span>
+      </div>
+
+      <h1 class="text-scam text-3xl font-bold mb-2">Likely a Scam</h1>
+      <p class="text-gray-700 max-w-md mx-auto mb-6">
+        This message shows signs of a potential smishing attempt. Here's what HELBme found:
+      </p>
+    </div>
+
+    <!-- Findings -->
+    <div class="grid gap-4 max-w-xl mx-auto">
+      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
+          <span class="material-symbols-outlined text-primary">link</span>
+        </div>
+        <div class="text-left">
+          <p class="font-bold text-gray-800">Suspicious Link</p>
+          <p class="text-gray-600 text-sm">The message contains a link that may lead to a fake or unsafe website.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
+          <span class="material-symbols-outlined text-primary">hourglass_top</span>
+        </div>
+        <div class="text-left">
+          <p class="font-bold text-gray-800">Urgency Detected</p>
+          <p class="text-gray-600 text-sm">The sender creates pressure to act fast — a common scam tactic.</p>
+        </div>
+      </div>
+
+      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
+          <span class="material-symbols-outlined text-primary">spellcheck</span>
+        </div>
+        <div class="text-left">
+          <p class="font-bold text-gray-800">Grammar Issues</p>
+          <p class="text-gray-600 text-sm">Errors or awkward phrasing may indicate an unverified source.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Next Steps -->
+    <section class="max-w-xl mx-auto text-left mt-8">
+      <h3 class="text-lg font-bold text-gray-800 mb-3">What to Do Next</h3>
+      <ul class="list-disc list-inside text-gray-700 space-y-2">
+        <li>Do not click on any suspicious links.</li>
+        <li>Block and report the sender immediately.</li>
+        <li>Delete the message to stay safe.</li>
+      </ul>
+    </section>
+
+    <!-- Action Button -->
+    <div class="mt-8">
+      <button class="bg-scam text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-scam/90 transition">
+        Report This Scam
+      </button>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#FFFD8F] text-center py-4 text-sm text-gray-500 border-t border-gray-200">
+    © 2025 HELBme | All Rights Reserved
+  </footer>
+
+  <script src="assets/js/result.js"></script>
+</body>
+</html>
