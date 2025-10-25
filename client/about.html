@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - HELBme</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: "#1193d4",
+            background: "#f6f7f8",
+            dark: "#101c22",
+          },
+          fontFamily: {
+            display: ["Inter", "sans-serif"],
+          },
+        },
+      },
+    };
+  </script>
+</head>
+
+<body class="font-display bg-background text-[#0d171b] min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="flex items-center justify-between p-4 bg-[#C2E2FA] dark:bg-background-dark sticky top-0 z-10 border-b border-gray-200">
+    <a href="index.html" class="flex items-center text-primary">
+      <span class="material-symbols-outlined text-[24px]">arrow_back</span>
+    </a>
+
+    <h2 class="text-lg font-bold flex-1 text-center">How HELBme Works</h2>
+
+    <!-- Hamburger Menu -->
+    <div class="relative">
+      <button id="menuBtn" class="material-symbols-outlined text-[28px] text-primary focus:outline-none">
+        menu
+      </button>
+      <div id="menuDropdown"
+           class="hidden absolute right-0 mt-2 w-40 bg-white rounded-lg shadow-lg border border-gray-200 ">
+        <a href="index.html" class="block px-4 py-2 hover:bg-primary/10 dark:hover:bg-[#C2E2FA] ">Home</a>
+        <a href="upload.html" class="block px-4 py-2 hover:bg-primary/10 dark:hover:bg-[#C2E2FA] ">Upload</a>
+        <a href="about.html" class="block px-4 py-2 hover:bg-primary/10 dark:hover:bg-[#C2E2FA] ">About</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main content -->
+  <main class="flex-1 px-5 py-6">
+    <p class="text-base mb-6 text-gray-700">
+      HELBme helps you verify whether a message is legitimate or a smishing scam. Here’s how it works:
+    </p>
+
+    <!-- Step 1 -->
+    <div class="flex items-start mb-6">
+      <div class="flex flex-col items-center mr-4">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/20 rounded-full">
+          <span class="material-symbols-outlined text-primary">file_upload</span>
+        </div>
+        <div class="w-px bg-gray-300 flex-grow my-2"></div>
+      </div>
+      <div>
+        <p class="font-medium">Screenshot Upload</p>
+        <p class="text-gray-500 text-sm">You upload a screenshot of the suspicious message.</p>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="flex items-start mb-6">
+      <div class="flex flex-col items-center mr-4">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/20 rounded-full">
+          <span class="material-symbols-outlined text-primary">document_scanner</span>
+        </div>
+        <div class="w-px bg-gray-300 flex-grow my-2"></div>
+      </div>
+      <div>
+        <p class="font-medium">Text Extraction</p>
+        <p class="text-gray-500 text-sm">Our system extracts the sender ID from your uploaded image.</p>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="flex items-start mb-6">
+      <div class="flex flex-col items-center mr-4">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/20 rounded-full">
+          <span class="material-symbols-outlined text-primary">psychology</span>
+        </div>
+        <div class="w-px bg-gray-300 flex-grow my-2"></div>
+      </div>
+      <div>
+        <p class="font-medium">Analysis</p>
+        <p class="text-gray-500 text-sm">The engine checks for fake IDs referencing our database of verified HELB IDs.</p>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="flex items-start mb-6">
+      <div class="flex flex-col items-center mr-4">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/20 rounded-full">
+          <span class="material-symbols-outlined text-primary">summarize</span>
+        </div>
+        <div class="w-px bg-gray-300 flex-grow my-2"></div>
+      </div>
+      <div>
+        <p class="font-medium">Result Generation</p>
+        <p class="text-gray-500 text-sm">Results are generated and classified as Legitimate or Scam.</p>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="flex items-start mb-6">
+      <div class="flex flex-col items-center mr-4">
+        <div class="flex items-center justify-center w-10 h-10 bg-primary/20 rounded-full">
+          <span class="material-symbols-outlined text-primary">notifications_active</span>
+        </div>
+      </div>
+      <div>
+        <p class="font-medium">User Notification</p>
+        <p class="text-gray-500 text-sm">You get an explanation with safety recommendations from HELB guidelines.</p>
+      </div>
+    </div>
+
+    <p class="text-center text-gray-500 text-sm mt-10">
+      Your privacy and data security are our top priorities. All submitted screenshots are processed responsibly and securely. Note that we don't permanently store the images permanently.
+    </p>
+
+    <!-- CTA button -->
+    <div class="mt-8 flex justify-center">
+      <a href="upload.html"
+        class="bg-primary text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-[#0d7eb8] transition">
+        Get Started
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class=" bg-[#FFFD8F] text-center py-4 text-sm text-gray-500 border-t border-gray-200">
+    © 2025 HELBme | All Rights Reserved
+  </footer>
+
+  <!-- Menu Script -->
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const menuDropdown = document.getElementById('menuDropdown');
+
+    menuBtn.addEventListener('click', () => {
+      menuDropdown.classList.toggle('hidden');
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuBtn.contains(e.target) && !menuDropdown.contains(e.target)) {
+        menuDropdown.classList.add('hidden');
+      }
+    });
+  </script>
+</body>
+</html>
