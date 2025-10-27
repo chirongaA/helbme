@@ -1,0 +1,5 @@
+Flask
+pymongo
+pillow
+pytesseract
+Flask-Cors
