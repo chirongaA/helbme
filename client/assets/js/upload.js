@@ -3,56 +3,82 @@ const fileInput = document.getElementById('fileInput');
 const fileName = document.getElementById('fileName');
 const analyzeBtn = document.getElementById('analyzeBtn');
 const statusMessage = document.getElementById('statusMessage');
+const uploadLabel = fileInput.closest('label');
+
+let selectedFile = null;
 
 fileInput.addEventListener('change', () => {
-    fileName.textContent = fileInput.files.length ? fileInput.files[0].name : '';
+    if (fileInput.files.length) {
+        selectedFile = fileInput.files[0];
+        fileName.textContent = selectedFile.name;
+    } else {
+        selectedFile = null;
+        fileName.textContent = '';
+    }
 });
 
 uploadForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!fileInput.files.length) {
+    
+    if (!selectedFile) {
         statusMessage.textContent = "Please select an image first.";
         statusMessage.className = "mt-4 text-sm font-medium text-center text-yellow-600";
         return;
     }
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
 
-    // UI state
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+
+    // Hide upload box and show processing state
+    uploadLabel.style.display = 'none';
+    fileName.style.display = 'none';
+    
+    // Update UI state
     analyzeBtn.disabled = true;
     analyzeBtn.textContent = "Analyzing...";
-    statusMessage.textContent = "Processing image...";
+    statusMessage.textContent = "Processing image, please wait...";
+    statusMessage.className = "mt-4 text-sm font-medium text-center text-blue-600";
 
-    // Determine upload URL:
-    // - If the page is opened via file://, or the page origin does not match the expected backend origin
-    //   (for example you're serving static files with `python -m http.server` on port 8000),
-    //   point to the Flask backend at http://localhost:5000.
-    // - Otherwise use relative '/upload' so the same origin works when Flask serves the client.
+    // Backend URL configuration
     const BACKEND_ORIGIN = 'http://localhost:5000';
-    const UPLOAD_URL = (location.protocol === 'file:' || location.origin !== BACKEND_ORIGIN) ? `${BACKEND_ORIGIN}/upload` : '/upload';
+    const UPLOAD_URL = (location.protocol === 'file:' || location.origin !== BACKEND_ORIGIN) 
+        ? `${BACKEND_ORIGIN}/upload` 
+        : '/upload';
 
     try {
         const response = await fetch(UPLOAD_URL, { method: 'POST', body: formData });
         const result = await response.json();
+        
         if (response.ok) {
-            // Show the analyzed sender ID and whether it's legit
-            if (result.is_known) {
-                statusMessage.textContent = `✔ Legitimate sender ID detected: ${result.sender_id}`;
-                statusMessage.className = "mt-4 text-sm font-medium text-center text-green-600";
-            } else {
-                statusMessage.textContent = `⚠ Sender ID "${result.sender_id}" is NOT recognized by HELB. Possible scam.`;
-                statusMessage.className = "mt-4 text-sm font-medium text-center text-red-600";
-            }
+            // Store result in sessionStorage to pass to result.html
+            sessionStorage.setItem('analysisResult', JSON.stringify({
+                sender_id: result.sender_id,
+                is_known: result.is_known,
+                filename: selectedFile.name,
+                timestamp: new Date().toISOString()
+            }));
+            
+            // Redirect to result page
+            window.location.href = 'result.html';
         } else {
+            // Show error and restore UI
             statusMessage.textContent = result.error || "Failed to analyze image.";
             statusMessage.className = "mt-4 text-sm font-medium text-center text-red-600";
+            restoreUploadUI();
         }
     } catch (error) {
-        statusMessage.textContent = "Network or server error.";
+        statusMessage.textContent = "Network or server error. Please check if the backend is running.";
         statusMessage.className = "mt-4 text-sm font-medium text-center text-red-600";
-    } finally {
-        analyzeBtn.disabled = false;
-        analyzeBtn.textContent = "Analyze Screenshot";
+        restoreUploadUI();
     }
 });
+
+function restoreUploadUI() {
+    // Restore upload box visibility
+    uploadLabel.style.display = 'flex';
+    fileName.style.display = 'block';
+    
+    // Reset button state
+    analyzeBtn.disabled = false;
+    analyzeBtn.textContent = "Analyze Screenshot";
+}

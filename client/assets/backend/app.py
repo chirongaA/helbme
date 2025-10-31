@@ -36,6 +36,30 @@ ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
+def is_known_sender(sender_id):
+    """Check if sender ID is known/legitimate with EXACT case-sensitive matching"""
+    if not sender_id:
+        return False
+    
+    # EXACT matching only - case sensitive for security
+    # This prevents scammers from using variations like "sure pay", "SUREPAY", etc.
+    
+    # If MongoDB is available use it
+    try:
+        if collection is not None:
+            # Exact match in MongoDB (case-sensitive)
+            result = collection.find_one({'sender_id': sender_id})
+            if result:
+                return True
+    except Exception as e:
+        print(f"[DEBUG] MongoDB search error: {e}")
+    
+    # Fall back to exact list comparison (case-sensitive)
+    if sender_id in sender_list:
+        return True
+    
+    return False
+
 @app.route('/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
@@ -56,16 +80,11 @@ def upload_file():
             return jsonify({'error': f'OCR error: {str(e)}'}), 500
 
         if sender_id:
-            # If MongoDB is available use it, otherwise search the fallback list
-            found = False
-            try:
-                if collection is not None:
-                    found = bool(collection.find_one({'sender_id': sender_id}))
-                else:
-                    found = sender_id in sender_list
-            except Exception:
-                found = sender_id in sender_list
-
+            # Check if it's a known sender with EXACT matching
+            found = is_known_sender(sender_id)
+            
+            print(f"[DEBUG] Extracted sender_id: '{sender_id}', Is known: {found}")
+            
             return jsonify({'sender_id': sender_id, 'is_known': bool(found)}), 200
         else:
             return jsonify({'error': 'Sender ID not found via OCR'}), 404
