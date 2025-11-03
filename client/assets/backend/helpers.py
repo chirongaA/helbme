@@ -1,4 +1,5 @@
-from PIL import Image, ImageEnhance, ImageFilter, ImageOps
+from PIL import Image, ImageEnhance, ImageFilter, ImageOps, ImageFile
+ImageFile.LOAD_TRUNCATED_IMAGES = True
 import pytesseract
 import shutil
 import os
