@@ -139,7 +139,7 @@ function displayResult(result) {
                 
                 <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
                     <div class="flex items-center justify-center w-10 h-10 bg-scam/10 rounded-full">
-                        <span class="material-symbols-outlined text-scam">shield_off</span>
+                        <span class="material-symbols-outlined text-scam">person</span>
                     </div>
                     <div class="text-left">
                         <p class="font-bold text-gray-800">Potential Impersonation</p>
