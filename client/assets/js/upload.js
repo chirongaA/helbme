@@ -40,7 +40,7 @@ uploadForm.addEventListener('submit', async (e) => {
     statusMessage.className = "mt-4 text-sm font-medium text-center text-blue-600";
 
     // Backend URL configuration
-    const BACKEND_ORIGIN = 'https://preinventive-archival-dolores.ngrok-free.dev/upload';
+    const BACKEND_ORIGIN = 'http://localhost:5000';
     const UPLOAD_URL = (location.protocol === 'file:' || location.origin !== BACKEND_ORIGIN) 
         ? `${BACKEND_ORIGIN}/upload` 
         : '/upload';
