@@ -4,6 +4,7 @@ import pytesseract
 import shutil
 import os
 import re
+import time
 
 def _configure_tesseract():
     """Configure tesseract binary path"""
@@ -281,6 +282,8 @@ def extract_sender_id(image_path):
     except RuntimeError as e:
         raise
     
+    # Run cleanup before processing to maintain privacy
+    delete_old_uploads(os.path.join(os.path.dirname(__file__), "uploads"))
     print(f"[DEBUG] Processing image: {image_path}")
     
     # Preprocess the image
@@ -321,3 +324,34 @@ def extract_sender_id(image_path):
     
     print(f"[DEBUG] Final extracted sender ID: '{best_result}'")
     return best_result
+
+def delete_old_uploads(directory_path, days=1):
+    """
+    Delete images in the uploads folder that are older than `1 day`.
+    Reinforces data privacy by removing old uploaded files.
+    """
+    try:
+        now = time.time()
+        cutoff = now - (days * 86400)  # 86400 seconds in a day
+
+        if not os.path.exists(directory_path):
+            print(f"[CLEANUP] Directory not found: {directory_path}")
+            return
+
+        deleted_files = []
+        for filename in os.listdir(directory_path):
+            file_path = os.path.join(directory_path, filename)
+
+            # Only process files
+            if os.path.isfile(file_path):
+                file_mtime = os.path.getmtime(file_path)
+                if file_mtime < cutoff:
+                    os.remove(file_path)
+                    deleted_files.append(filename)
+
+        if deleted_files:
+            print(f"[CLEANUP] Deleted {len(deleted_files)} old files: {deleted_files}")
+        else:
+            print("[CLEANUP] No old uploads to remove.")
+    except Exception as e:
+        print(f"[CLEANUP ERROR] {str(e)}")
