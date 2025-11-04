@@ -57,11 +57,11 @@ def preprocess_image(image_path):
     
     # For message screenshots, crop to the top portion where sender ID appears
     # Focus on top 120 pixels (or 10% of height, whichever is larger)
-    crop_height = max(120, int(height * 0.10))
+    crop_height = max(115, int(height * 0.1))
     
     # Also crop from the left side to avoid back button and other UI elements
     # Start from 15% of width to skip the back arrow
-    left_margin = int(width * 0.15)
+    left_margin = int(width * 0.1)
     right_boundary = int(width * 0.60)  # Only take left portion of header
     
     img = img.crop((left_margin, 0, right_boundary, crop_height))
