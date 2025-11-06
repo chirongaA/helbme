@@ -4,7 +4,8 @@ from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 import os
 import json
-from helpers import extract_sender_id
+from helpers import extract_sender_id, check_url_safety
+
 
 app = Flask(__name__)
 CORS(app)  # allow cross-origin requests (use more restrictive settings in production)
@@ -94,3 +95,18 @@ if __name__ == '__main__':
     os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
     # Run on 0.0.0.0 if you want to access from other devices; default port is 5000
     app.run(debug=True)
+
+@app.route('/check_url', methods=['POST'])
+def check_url():
+    """Verify a URL using the VirusTotal API."""
+    data = request.get_json()
+    url = data.get('url')
+
+    if not url:
+        return jsonify({'error': 'No URL provided'}), 400
+
+    try:
+        result = check_url_safety(url)
+        return jsonify(result), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500

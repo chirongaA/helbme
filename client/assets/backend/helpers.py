@@ -5,6 +5,13 @@ import shutil
 import os
 import re
 import time
+import os
+from dotenv import load_dotenv
+import requests
+import base64
+
+load_dotenv()
+VT_API_KEY = os.getenv("VT_API_KEY")
 
 def _configure_tesseract():
     """Configure tesseract binary path"""
@@ -61,7 +68,7 @@ def preprocess_image(image_path):
     
     # Also crop from the left side to avoid back button and other UI elements
     # Start from 15% of width to skip the back arrow
-    left_margin = int(width * 0.1)
+    left_margin = int(width * 0.125)
     right_boundary = int(width * 0.60)  # Only take left portion of header
     
     img = img.crop((left_margin, 0, right_boundary, crop_height))
@@ -207,7 +214,7 @@ def clean_sender_id(raw_text):
     
     return None
         
-        # Clean the line - but preserve spaces and dashes for phone numbers
+       # Clean the line - but preserve spaces and dashes for phone numbers
     cleaned = line
         
         # Remove common symbols and UI elements (but keep spaces and dashes temporarily)
@@ -355,3 +362,42 @@ def delete_old_uploads(directory_path, days=1):
             print("[CLEANUP] No old uploads to remove.")
     except Exception as e:
         print(f"[CLEANUP ERROR] {str(e)}")
+
+# ---------------------------
+# VIRUSTOTAL INTEGRATION
+# ---------------------------
+
+def extract_urls_from_text(text):
+    """Extract URLs from message text"""
+    url_pattern = re.compile(
+        r'(https?://[^\s]+|www\.[^\s]+)',
+        re.IGNORECASE
+    )
+    return re.findall(url_pattern, text)
+
+
+def verify_link_with_virustotal(url):
+    """Check a URL against the VirusTotal API"""
+    if not VT_API_KEY:
+        return {"url": url, "status": "error", "details": "Missing API key"}
+
+    try:
+        headers = {"x-apikey": VT_API_KEY}
+        url_id = base64.urlsafe_b64encode(url.encode()).decode().strip("=")
+        vt_url = f"https://www.virustotal.com/api/v3/urls/{url_id}"
+
+        response = requests.get(vt_url, headers=headers)
+        if response.status_code == 200:
+            result = response.json()
+            stats = result.get("data", {}).get("attributes", {}).get("last_analysis_stats", {})
+            malicious = stats.get("malicious", 0)
+            suspicious = stats.get("suspicious", 0)
+
+            if malicious > 0 or suspicious > 0:
+                return {"url": url, "status": "unsafe", "details": stats}
+            return {"url": url, "status": "safe", "details": stats}
+        else:
+            return {"url": url, "status": "error", "details": response.text}
+
+    except Exception as e:
+        return {"url": url, "status": "error", "details": str(e)}

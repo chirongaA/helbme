@@ -40,7 +40,7 @@ uploadForm.addEventListener('submit', async (e) => {
     statusMessage.className = "mt-4 text-sm font-medium text-center text-blue-600";
 
     // Backend URL configuration
-    const BACKEND_ORIGIN = 'https://95298d412767.ngrok-free.app';
+    const BACKEND_ORIGIN = 'https://05ef5b228a75.ngrok-free.app';
     const UPLOAD_URL = (location.protocol === 'file:' || location.origin !== BACKEND_ORIGIN) 
         ? `${BACKEND_ORIGIN}/upload` 
         : '/upload';
