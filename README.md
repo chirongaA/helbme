@@ -1,14 +1,14 @@
----
 
-# 🛡️ **HelbMe** 🛡️
+````markdown
+# 🛡️ HelbMe 🛡️
 
-### 🚨 **Protecting HELB Beneficiaries from Smishing Scams** 🚨
+### 🚨 Protecting HELB Beneficiaries from Smishing Scams 🚨
 
 **HelbMe** is an innovative web and mobile application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content, and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
 
 ---
 
-## ✨ **Features**
+## ✨ Features
 
 * 🛑 **Automated Smishing Detection**: Scans incoming SMS messages or uploaded screenshots to identify potential HELB-related scams.
 * 📊 **Sender ID Verification**: Uses OCR, regex, and whitelisting to determine message authenticity.
@@ -18,7 +18,7 @@
 
 ---
 
-## 📚 **Table of Contents**
+## 📚 Table of Contents
 
 1. [Overview](#-helbme)
 2. [Features](#-features)
@@ -30,7 +30,7 @@
 
 ---
 
-## 🖥️ **Installation**
+## 🖥️ Installation
 
 To install or run HelbMe:
 
@@ -38,7 +38,8 @@ To install or run HelbMe:
 
    ```bash
    git clone https://github.com/HelbMe/HelbMe.git
-   ```
+````
+
 2. Install dependencies for backend (Python) and frontend (Flutter):
 
    ```bash
@@ -56,7 +57,7 @@ To install or run HelbMe:
 
 ---
 
-## 🛠️ **How It Works**
+## 🛠️ How It Works
 
 **HelbMe** operates through a multi-layered system:
 
@@ -68,7 +69,7 @@ To install or run HelbMe:
 
 ---
 
-## 📖 **Usage**
+## 📖 Usage
 
 1. Install or deploy HelbMe following the [Installation](#-installation) instructions.
 2. Users can either allow the system to automatically scan incoming messages or manually upload screenshots.
@@ -78,16 +79,17 @@ To install or run HelbMe:
 
 ---
 
-## 🧑‍🤝‍🧑 **Contributors**
+## 🧑‍🤝‍🧑 Contributors
 
 1. Bridgette Musango
-2. Augustine Chironga 
+2. Augustine Chironga
 3. Victor Mwai
-4. Norah Kimathi 
+4. Norah Kimathi
 
 ---
 
-## 📘 **Documentation**
+## 📘 Documentation
 
 For the full documentation about the problem, research, solution idea, and implementation details, visit the [HelbMe Documentation](https://docs.google.com/document/d/1ezQo0OXwnhEI-1s03rovepVqReC-UWWloP1huKE-dA0/edit?tab=t.0).
 
+```
