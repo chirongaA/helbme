@@ -96,6 +96,6 @@ To install or run HelbMe:
 
 ## 📘 Documentation
 
-For the full documentation about the problem, research, solution idea, and implementation details, visit the [HelbMe Documentation](https://docs.google.com/document/d/1ezQo0OXwnhEI-1s03rovepVqReC-UWWloP1huKE-dA0/edit?tab=t.0).
+For the full documentation about the problem, research, solution idea, and implementation details, visit the [HelbMe Documentation]().
 
 ---
