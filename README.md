@@ -35,9 +35,9 @@ To install or run HelbMe:
 1. Clone the repository from GitHub:
 
    ```bash
-   git clone [https://github.com/HelbMe/HelbMe.git](https://github.com/chirongaA/helbme.git)
+   git clone [https://github.com/chirongaA/helbme.git]
    ```
-2. Install dependencies for backend (Python) and frontend (Flutter):
+2. Install dependencies for the backend (Python):
 
    ```bash
    pip install -r requirements.txt  # Backend
