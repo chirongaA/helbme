@@ -71,7 +71,7 @@ To install or run HelbMe:
 
 ## 📖 Usage
 
-* Install or deploy HelbMe following the [Installation](#-installation) instructions.
+* Install or deploy HelbMe following the Installation instructions outlined previously.
 * Users manually upload screenshots.
 * Suspicious messages are flagged with clear instructions on what to do next if they are scams.
 
@@ -80,7 +80,7 @@ To install or run HelbMe:
 ## 🧑‍🤝‍🧑 Contributors
 
 * Bridgette Musango – Project Lead
-* Augustine Chironga – Frontend Development
+* Augustine Chironga – Frontend and Middleware Development
 * Victor Mwai – Backend Development
 * Norah Kimathi – Research & Documentation
 
