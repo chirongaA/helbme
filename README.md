@@ -2,17 +2,17 @@
 
 ### Protecting HELB Beneficiaries from Smishing Scams 
 
-**HelbMe** is an innovative web and mobile application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content, and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
+**HelbMe** is an innovative web application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content,verifies links embedded in messages and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
 
 ---
 
 ## 🚨 Features
 
-* 🛑 **Automated Smishing Detection**: Scans incoming SMS messages or uploaded screenshots to identify potential HELB-related scams.
+* 🛑 **Automated Smishing Detection**: Scans uploaded screenshots to identify potential HELB-related scams.
 * 📊 **Sender ID Verification**: Uses OCR, regex, and whitelisting to determine message authenticity.
-* 🔔 **Real-time Alerts**: Notifies users immediately when a suspicious message is detected.
+* 🔔 **Instant delivery**: Notifies users immediately when a suspicious message is detected.
 * 🎯 **Cyber-awareness Guidance**: Provides clear tips to help users identify scams and safely interact with digital loan systems.
-* 📤 **Reporting Workflow**: Enables users to forward suspicious messages directly to HELB and telecommunication authorities.
+* 📤 **Link verification**: Outputs whether embedded links are safe.
 
 ---
 
@@ -35,22 +35,23 @@ To install or run HelbMe:
 1. Clone the repository from GitHub:
 
    ```bash
-   git clone https://github.com/HelbMe/HelbMe.git
+   git clone [https://github.com/HelbMe/HelbMe.git](https://github.com/chirongaA/helbme.git)
    ```
 2. Install dependencies for backend (Python) and frontend (Flutter):
 
    ```bash
    pip install -r requirements.txt  # Backend
-   flutter pub get                  # Frontend
    ```
-3. Configure database connection (MongoDB) in the backend configuration file.
-4. Set up SMS gateway API keys for real-time alerts.
-5. Run backend and frontend locally or deploy to a server:
+3. Install Tesseract OCR from https://tesseract-ocr.github.io/tessdoc/Installation.html
+4. Configure database connection (MongoDB) in the backend configuration file.
+5. Set up VirusTotal API key for link verification.
+6. On Vs code open two terminals:
+a). Terminal 1: runs python -m http.server in your overall file for example C:\Users\user\helbme\helbme\
+b). Terminal 2: in your backend folder, run python app.py
 
-   ```bash
-   python app.py  # Backend
-   flutter run    # Frontend
-   ```
+The frontend can be hosted from your Github Pages or locally using the URL: http://127.0.0.1:8000/client
+
+The backend can also be hosted  through a live server or locally under the function uploadForm.addEventListener() in upload.js, by editing the backend URL to your URL of choice.
 
 ---
 
@@ -58,21 +59,19 @@ To install or run HelbMe:
 
 **HelbMe** operates through a multi-layered system:
 
-* **SMS Detection**: Automatically scans incoming messages or analyzes uploaded screenshots for HELB-specific scam patterns.
+* **SMS Detection**: Scans uploaded screenshots for HELB-specific scam patterns.
 * **Sender ID Verification**: Extracted via OCR and checked against a whitelist of legitimate HELB sender IDs.
-* **Alerting**: Flags suspicious messages and sends real-time notifications to the user.
-* **User Education**: Provides contextual guidance on how to respond safely and avoid scams.
-* **Reporting**: Users can forward suspected messages to HELB and telcos for verification, creating a feedback loop that improves detection rules over time.
+* **Link verification**: Extracts links embedded in messages which are checked through VirusTotal API.
+* **Alerting**: Flags suspicious messages and links in the uploaded message.
+* **User education**: Provides contextual guidance on how to respond safely and how to avoid scams.
 
 ---
 
 ## 📖 Usage
 
 * Install or deploy HelbMe following the [Installation](#-installation) instructions.
-* Users can allow the system to automatically scan messages or manually upload screenshots.
-* Suspicious messages are flagged with in-app alerts and clear instructions.
-* Users can report suspicious messages directly through the app or via SMS forwarding.
-* HELB and telecommunication authorities receive reports for verification, contributing to ongoing threat mitigation.
+* Users manually upload screenshots.
+* Suspicious messages are flagged with clear instructions on what to do next if they are scams.
 
 ---
 
