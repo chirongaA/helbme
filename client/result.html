@@ -49,64 +49,30 @@
 
   <!-- Main Content -->
   <main class="flex-grow px-5 py-8 text-center">
-    <div class="flex flex-col items-center">
-      <div class="flex items-center justify-center w-20 h-20 bg-scam/10 rounded-full mb-4">
-        <span class="material-symbols-outlined text-4xl text-scam">warning</span>
-      </div>
-
-      <h1 class="text-scam text-3xl font-bold mb-2">Likely a Scam</h1>
-      <p class="text-gray-700 max-w-md mx-auto mb-6">
-        This message shows signs of a potential smishing attempt. Here's what HELBme found:
-      </p>
+    <!-- Dynamic Result Section -->
+    <div id="verdictSection" class="flex flex-col items-center mb-8">
+      <!-- This will be populated by JavaScript -->
     </div>
 
-    <!-- Findings -->
-    <div class="grid gap-4 max-w-xl mx-auto">
-      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
-        <div class="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
-          <span class="material-symbols-outlined text-primary">link</span>
-        </div>
-        <div class="text-left">
-          <p class="font-bold text-gray-800">Suspicious Link</p>
-          <p class="text-gray-600 text-sm">The message contains a link that may lead to a fake or unsafe website.</p>
-        </div>
-      </div>
-
-      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
-        <div class="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
-          <span class="material-symbols-outlined text-primary">hourglass_top</span>
-        </div>
-        <div class="text-left">
-          <p class="font-bold text-gray-800">Urgency Detected</p>
-          <p class="text-gray-600 text-sm">The sender creates pressure to act fast — a common scam tactic.</p>
-        </div>
-      </div>
-
-      <div class="flex items-start gap-4 p-4 bg-white rounded-xl shadow-sm">
-        <div class="flex items-center justify-center w-10 h-10 bg-primary/10 rounded-full">
-          <span class="material-symbols-outlined text-primary">spellcheck</span>
-        </div>
-        <div class="text-left">
-          <p class="font-bold text-gray-800">Grammar Issues</p>
-          <p class="text-gray-600 text-sm">Errors or awkward phrasing may indicate an unverified source.</p>
-        </div>
-      </div>
+    <!-- Dynamic Findings Section -->
+    <div id="findingsSection" class="grid gap-4 max-w-xl mx-auto mb-8">
+      <!-- This will be populated by JavaScript -->
     </div>
 
-    <!-- Next Steps -->
-    <section class="max-w-xl mx-auto text-left mt-8">
-      <h3 class="text-lg font-bold text-gray-800 mb-3">What to Do Next</h3>
-      <ul class="list-disc list-inside text-gray-700 space-y-2">
-        <li>Do not click on any suspicious links.</li>
-        <li>Block and report the sender immediately.</li>
-        <li>Delete the message to stay safe.</li>
-      </ul>
+    <!-- Dynamic Next Steps Section -->
+    <section id="nextStepsSection" class="max-w-xl mx-auto text-left mb-8">
+      <!-- This will be populated by JavaScript -->
+    </section>
+
+    <!-- URL Analysis Section -->
+    <section id="urlSection" class="max-w-xl mx-auto text-left mb-8">
+      <!-- This will be populated by JavaScript -->
     </section>
 
     <!-- Action Button -->
     <div class="mt-8">
-      <button class="bg-scam text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-scam/90 transition">
-        Report This Scam
+      <button onclick="window.location.href='upload.html'" class="bg-primary text-white font-bold py-3 px-6 rounded-lg shadow-md hover:bg-primary/90 transition">
+        Check Another Message
       </button>
     </div>
   </main>

@@ -4,7 +4,7 @@ from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 import os
 import json
-from helpers import extract_sender_id, check_url_safety
+from helpers import extract_sender_id, verify_link_with_virustotal, extract_message_text, extract_urls_from_text
 
 
 app = Flask(__name__)
@@ -61,52 +61,78 @@ def is_known_sender(sender_id):
     
     return False
 
-@app.route('/upload', methods=['POST'])
-def upload_file():
-    if 'file' not in request.files:
-        return jsonify({'error': 'No file part'}), 400
-    file = request.files['file']
-    if file.filename == '':
-        return jsonify({'error': 'No selected file'}), 400
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        # Ensure upload directory exists
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
-        file.save(filepath)
 
-        try:
-            sender_id = extract_sender_id(filepath)
-        except Exception as e:
-            return jsonify({'error': f'OCR error: {str(e)}'}), 500
+@app.route('/analyze', methods=['POST'])
+def analyze_image():
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image file provided'}), 400
 
-        if sender_id:
-            # Check if it's a known sender with EXACT matching
-            found = is_known_sender(sender_id)
-            
-            print(f"[DEBUG] Extracted sender_id: '{sender_id}', Is known: {found}")
-            
-            return jsonify({'sender_id': sender_id, 'is_known': bool(found)}), 200
-        else:
-            return jsonify({'error': 'Sender ID not found via OCR'}), 404
-    return jsonify({'error': 'Invalid file type'}), 400
-
-if __name__ == '__main__':
-    os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
-    # Run on 0.0.0.0 if you want to access from other devices; default port is 5000
-    app.run(debug=True)
-
-@app.route('/check_url', methods=['POST'])
-def check_url():
-    """Verify a URL using the VirusTotal API."""
-    data = request.get_json()
-    url = data.get('url')
-
-    if not url:
-        return jsonify({'error': 'No URL provided'}), 400
+    image_file = request.files['image']
+    image_path = os.path.join('uploads', image_file.filename)
+    image_file.save(image_path)
 
     try:
-        result = check_url_safety(url)
-        return jsonify(result), 200
+        # Step 1: Extract sender ID from the top section of the image
+        sender_id = extract_sender_id(image_path)
+
+        # Step 2: Extract full text from the message body
+        message_text = extract_message_text(image_path)
+
+        # Step 3: Extract any URLs from that text
+        urls = extract_urls_from_text(message_text)
+
+        # Step 4: Check each URL using VirusTotal
+        url_results = []
+        if urls:
+            for url in urls:
+                vt_result = verify_link_with_virustotal(url)
+                url_results.append({
+                    'url': url,
+                    'verdict': vt_result
+                })
+        else:
+            url_results.append({'message': 'No URLs found in the message'})
+
+        # Step 5: Determine if sender is legitimate
+        is_known = is_known_sender(sender_id)
+
+        # Step 6: Build structured response
+        if is_known:
+            verdict = "Legitimate Message"
+            message = f'The sender ID <stong>"{sender_id}"</strong> is recognized as an official HELB communication channel. This message appears to be legitimate.'
+            advice = [
+                "Always confirm messages come from official sender IDs: **HELB**, **SurePay**, or **5122**.",
+                "You can safely interact with official HELB messages, but stay alert for unexpected links."
+            ]
+        else:
+            verdict = "Likely a Scam"
+            message = f'The sender ID <stong>"{sender_id}"</strong> is NOT recognized by HELB. This message shows signs of a potential smishing attempt.'
+            advice = [
+                "HELB sends communication through **HELB**, **SurePay**, and **5122** only.",
+                "Do not click on suspicious links.",
+                "Block and report the sender immediately.",
+                "Delete the message to stay safe."
+            ]
+
+        # Step 7: Combine all into final response
+        response = {
+            'sender_id': sender_id if sender_id else "Sender not detected",
+            'is_known': is_known,
+            'verdict': verdict,
+            'message': message,
+            'advice': advice,
+            'urls_checked': url_results
+        }
+
+        return jsonify(response)
+
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+
+print("DEBUG: request.files =", request.files)
+print("DEBUG: request.form =", request.form)

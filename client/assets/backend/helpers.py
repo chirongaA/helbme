@@ -339,7 +339,7 @@ def delete_old_uploads(directory_path, days=1):
     """
     try:
         now = time.time()
-        cutoff = now - (days * 86400)  # 86400 seconds in a day
+        cutoff = now - (days * 86400)  # 86400 seconds in a day.
 
         if not os.path.exists(directory_path):
             print(f"[CLEANUP] Directory not found: {directory_path}")
@@ -366,6 +366,29 @@ def delete_old_uploads(directory_path, days=1):
 # ---------------------------
 # VIRUSTOTAL INTEGRATION
 # ---------------------------
+def extract_message_text(image_path):
+    """Extract full message text (not just sender ID) for link analysis"""
+    try:
+        _configure_tesseract()
+    except RuntimeError as e:
+        raise
+
+    img = Image.open(image_path)
+    
+    # Convert to grayscale for better OCR
+    if img.mode != 'L':
+        img = img.convert('L')
+
+    # Slight contrast enhancement
+    img = ImageEnhance.Contrast(img).enhance(1.8)
+
+    # Use OCR on the full image
+    config = r'--oem 3 --psm 6'
+    raw_text = pytesseract.image_to_string(img, config=config)
+
+    print(f"[DEBUG] Full OCR text: {raw_text}")
+
+    return raw_text
 
 def extract_urls_from_text(text):
     """Extract URLs from message text"""
@@ -379,7 +402,7 @@ def extract_urls_from_text(text):
 def verify_link_with_virustotal(url):
     """Check a URL against the VirusTotal API"""
     if not VT_API_KEY:
-        return {"url": url, "status": "error", "details": "Missing API key"}
+        return {"verdict": "error", "details": "Missing API key"}
 
     try:
         headers = {"x-apikey": VT_API_KEY}
@@ -393,11 +416,14 @@ def verify_link_with_virustotal(url):
             malicious = stats.get("malicious", 0)
             suspicious = stats.get("suspicious", 0)
 
-            if malicious > 0 or suspicious > 0:
-                return {"url": url, "status": "unsafe", "details": stats}
-            return {"url": url, "status": "safe", "details": stats}
+            if malicious > 0:
+                return {"verdict": "malicious", "details": f"Flagged by {malicious} security vendors"}
+            elif suspicious > 0:
+                return {"verdict": "suspicious", "details": f"Flagged as suspicious by {suspicious} security vendors"}
+            else:
+                return {"verdict": "clean", "details": "No security vendors flagged this URL"}
         else:
-            return {"url": url, "status": "error", "details": response.text}
+            return {"verdict": "error", "details": "API request failed"}
 
     except Exception as e:
-        return {"url": url, "status": "error", "details": str(e)}
+        return {"verdict": "error", "details": str(e)}
