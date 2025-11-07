@@ -47,13 +47,21 @@ To install or run HelbMe:
 5. Set up VirusTotal API key for link verification.
 6. On Vs code open two terminals:
    
-   a). Terminal 1: runs python -m http.server in your overall file for example C:\Users\user\helbme\helbme\
+   a). Terminal 1: In your overall file for example C:\Users\user\helbme\helbme\ run the command:
+
+   ```bash
+   python -m http.server
+   ```
    
-   b). Terminal 2: in your backend folder, run python app.py
+   b). Terminal 2: in your backend folder, run:
 
-7. The frontend can be hosted from your Github Pages or locally using the URL: http://x.x.x.:8000/client
+   ```bash
+   python app.py
+   ```
 
-8. The backend can also be hosted  through a live server or locally under the function uploadForm.addEventListener() in upload.js, by editing the backend URL to your URL of choice.
+8. The frontend can be hosted from your Github Pages or locally using the URL: http://x.x.x.:8000/client
+
+9. The backend can also be hosted  through a live server or locally under the function uploadForm.addEventListener() in upload.js, by editing the backend URL to your URL of choice.
 
 ---
 
