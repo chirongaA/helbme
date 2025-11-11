@@ -1,12 +1,12 @@
-# 🚧🚨 HelbMe 
+# 🚧🚨 HELBme 
 
 ### Protecting HELB Beneficiaries from Smishing Scams 
 
-**HelbMe** is an innovative web application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content,verifies links embedded in messages, and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
+**HELBme** is an innovative web application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content,verifies links embedded in messages, and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
 
 ---
 
-## 🚨 Features
+## 💡 Here's what HELBme can do
 
 * 🛑 **Automated Smishing Detection**: Scans uploaded screenshots to identify potential HELB-related scams.
 * 📊 **Sender ID Verification**: Uses OCR, regex, and whitelisting to determine message authenticity.
@@ -30,7 +30,7 @@
 
 ## 🖥️ Installation
 
-To install or run HelbMe:
+To install or run HELBme:
 
 1. Clone the repository from GitHub:
 
@@ -67,7 +67,7 @@ To install or run HelbMe:
 
 ## 🛠️ How It Works
 
-**HelbMe** operates through a multi-layered system:
+**HELBme** operates through a multi-layered system:
 
 * **SMS Detection**: Scans uploaded screenshots for HELB-specific scam patterns.
 * **Sender ID Verification**: Extracted via OCR and checked against a whitelist of legitimate HELB sender IDs.
