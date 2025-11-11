@@ -3,3 +3,4 @@ pymongo
 pillow
 pytesseract
 Flask-Cors
+gunicorn
