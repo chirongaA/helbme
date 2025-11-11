@@ -2,7 +2,7 @@
 
 ### Protecting HELB Beneficiaries from Smishing Scams 
 
-**HelbMe** is an innovative web application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content,verifies links embedded in messages and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
+**HelbMe** is an innovative web application designed to help HELB (Higher Education Loans Board) beneficiaries in Kenya detect fraudulent SMS messages (smishing) in real-time. It verifies sender IDs, flags suspicious content,verifies links embedded in messages, and provides actionable cyber-awareness guidance to prevent financial loss and identity theft.
 
 ---
 
@@ -61,7 +61,7 @@ To install or run HelbMe:
 
 8. The frontend can be hosted from your Github Pages or locally using the URL: http://x.x.x.x:8000/client
 
-9. The backend can also be hosted  through a live server or locally under the function uploadForm.addEventListener() in upload.js, by editing the backend URL to your URL of choice.
+9. The backend can also be hosted through a live server or locally under the function uploadForm.addEventListener(), in upload.js, by editing the backend URL to your URL of choice.
 
 ---
 
