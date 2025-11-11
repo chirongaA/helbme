@@ -5,3 +5,4 @@ pytesseract
 Flask-Cors
 gunicorn
 python-dotenv
+requests
