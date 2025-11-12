@@ -37,7 +37,7 @@ uploadForm.addEventListener('submit', async (e) => {
     statusMessage.textContent = "Processing image, please wait...";
     statusMessage.className = "mt-4 text-sm font-medium text-center text-blue-600";
 
-    const BACKEND_URL = "https://7d2ed26ede80.ngrok-free.app/analyze";
+    const BACKEND_URL = "https://helbme.onrender.com/analyze";
 
     try {
         const response = await fetch(BACKEND_URL, { method: 'POST', body: formData });
