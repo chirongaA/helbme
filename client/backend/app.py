@@ -99,14 +99,14 @@ def analyze_image():
         # Step 6: Build structured response
         if is_known:
             verdict = "Legitimate Message"
-            message = f'The sender ID <stong>"{sender_id}"</strong> is recognized as an official HELB communication channel. This message appears to be legitimate.'
+            message = f'The sender ID <strong>"{sender_id}"</strong> is recognized as an official HELB communication channel. This message appears to be legitimate.'
             advice = [
                 "Always confirm messages come from official sender IDs: **HELB**, **SurePay**, or **5122**.",
                 "You can safely interact with official HELB messages, but stay alert for unexpected links."
             ]
         else:
             verdict = "Likely a Scam"
-            message = f'The sender ID <stong>"{sender_id}"</strong> is NOT recognized by HELB. This message shows signs of a potential smishing attempt.'
+            message = f'The sender ID <strong>"{sender_id}"</strong> is NOT recognized by HELB. This message shows signs of a potential smishing attempt.'
             advice = [
                 "HELB sends communication through **HELB**, **SurePay**, and **5122** only.",
                 "Do not click on suspicious links.",
@@ -132,7 +132,3 @@ def analyze_image():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
-
-print("DEBUG: request.files =", request.files)
-print("DEBUG: request.form =", request.form)
