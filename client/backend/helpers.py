@@ -14,46 +14,41 @@ load_dotenv()
 VT_API_KEY = os.getenv("VT_API_KEY")
 
 def _configure_tesseract():
-    """Configure tesseract for cloud environments - simplified version"""
-    import os
-    import subprocess
-    
-    # First, try to use system-installed tesseract
-    try:
-        # Test if tesseract is available in system PATH
-        result = subprocess.run(['which', 'tesseract'], capture_output=True, text=True)
-        if result.returncode == 0:
-            tesseract_path = result.stdout.strip()
-            pytesseract.pytesseract.tesseract_cmd = tesseract_path
-            print(f"[DEBUG] Found tesseract at: {tesseract_path}")
-            return
-    except Exception as e:
-        print(f"[DEBUG] which command failed: {e}")
-    
-    # Fallback to common Linux paths
-    common_paths = [
-        '/usr/bin/tesseract',
-        '/usr/local/bin/tesseract', 
-        '/bin/tesseract'
-    ]
-    
-    for path in common_paths:
-        if os.path.exists(path):
-            pytesseract.pytesseract.tesseract_cmd = path
-            print(f"[DEBUG] Using tesseract from: {path}")
-            return
-    
-    # Final attempt: try to get version (might work if in PATH)
-    try:
-        version = pytesseract.get_tesseract_version()
-        print(f"[DEBUG] Tesseract is working, version: {version}")
+    """Configure tesseract binary path"""
+    current = getattr(pytesseract.pytesseract, 'tesseract_cmd', None)
+    if current and os.path.exists(current):
         return
-    except Exception as e:
-        raise RuntimeError(
-            "Tesseract OCR is not installed or not found. "
-            "Please ensure Tesseract OCR is installed in the system. "
-            f"Last error: {str(e)}"
-        )
+
+    # Look for tesseract on PATH
+    t_path = shutil.which('tesseract')
+    if t_path:
+        pytesseract.pytesseract.tesseract_cmd = t_path
+        return
+
+    # Common install locations
+    probable_paths = [
+        r"C:\Program Files\Tesseract-OCR\tesseract.exe",
+        r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe",
+        '/usr/bin/tesseract',
+        '/usr/local/bin/tesseract'
+    ]
+    for p in probable_paths:
+        if os.path.exists(p):
+            pytesseract.pytesseract.tesseract_cmd = p
+            return
+
+    # Allow user-defined env var
+    env_path = os.environ.get('TESSERACT_CMD')
+    if env_path and os.path.exists(env_path):
+        pytesseract.pytesseract.tesseract_cmd = env_path
+        return
+
+    raise RuntimeError(
+        "tesseract is not installed or it's not in your PATH. "
+        "Install Tesseract OCR (https://github.com/tesseract-ocr/tesseract) "
+        "and ensure the tesseract executable is on your PATH, or set the "
+        "environment variable TESSERACT_CMD to the full path of tesseract.exe."
+    )
 
 
 def preprocess_image(image_path):
