@@ -14,45 +14,45 @@ load_dotenv()
 VT_API_KEY = os.getenv("VT_API_KEY")
 
 def _configure_tesseract():
-    """Configure tesseract binary path for cloud environments"""
+    """Configure tesseract for cloud environments - simplified version"""
+    import os
+    import subprocess
     
-    # In cloud environments (Render), tesseract is installed in system PATH
-    # We just need to find where it's located
-    tesseract_cmd = pytesseract.pytesseract.tesseract_cmd
-    
-    # If the current command doesn't work, try to find tesseract in common locations
-    if not os.path.exists(tesseract_cmd):
-        # Common Linux locations in cloud environments
-        probable_paths = [
-            '/usr/bin/tesseract',
-            '/usr/local/bin/tesseract',
-            '/bin/tesseract'
-        ]
-        
-        for path in probable_paths:
-            if os.path.exists(path):
-                pytesseract.pytesseract.tesseract_cmd = path
-                print(f"[DEBUG] Found tesseract at: {path}")
-                return
-    
-    # If we still can't find it, check if tesseract is in PATH
-    tesseract_path = shutil.which('tesseract')
-    if tesseract_path:
-        pytesseract.pytesseract.tesseract_cmd = tesseract_path
-        print(f"[DEBUG] Found tesseract in PATH: {tesseract_path}")
-        return
-    
-    # Final fallback - try to use the system-installed version
+    # First, try to use system-installed tesseract
     try:
-        # Test if tesseract works with system installation
-        pytesseract.get_tesseract_version()
-        print("[DEBUG] Tesseract is working with system installation")
+        # Test if tesseract is available in system PATH
+        result = subprocess.run(['which', 'tesseract'], capture_output=True, text=True)
+        if result.returncode == 0:
+            tesseract_path = result.stdout.strip()
+            pytesseract.pytesseract.tesseract_cmd = tesseract_path
+            print(f"[DEBUG] Found tesseract at: {tesseract_path}")
+            return
+    except Exception as e:
+        print(f"[DEBUG] which command failed: {e}")
+    
+    # Fallback to common Linux paths
+    common_paths = [
+        '/usr/bin/tesseract',
+        '/usr/local/bin/tesseract', 
+        '/bin/tesseract'
+    ]
+    
+    for path in common_paths:
+        if os.path.exists(path):
+            pytesseract.pytesseract.tesseract_cmd = path
+            print(f"[DEBUG] Using tesseract from: {path}")
+            return
+    
+    # Final attempt: try to get version (might work if in PATH)
+    try:
+        version = pytesseract.get_tesseract_version()
+        print(f"[DEBUG] Tesseract is working, version: {version}")
         return
     except Exception as e:
         raise RuntimeError(
-            "Tesseract OCR is not properly installed in the system. "
-            "Please ensure Tesseract OCR is installed in your deployment environment. "
-            f"Error: {str(e)}"
+            "Tesseract OCR is not installed or not found. "
+            "Please ensure Tesseract OCR is installed in the system. "
+            f"Last error: {str(e)}"
         )
 
 
