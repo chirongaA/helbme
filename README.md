@@ -82,6 +82,7 @@ To install or run HELBme:
 * Install or deploy HelbMe following the Installation instructions outlined previously.
 * Users manually upload screenshots.
 * Suspicious messages are flagged with clear instructions on what to do next if they are scams.
+* Deployment of the application is currently underway.
 
 ---
 
@@ -96,6 +97,6 @@ To install or run HELBme:
 
 ## 📘 Documentation
 
-For the full documentation about the problem, research, solution idea, and implementation details, visit the [HelbMe Documentation]().
+For the full documentation about the problem, research, solution idea, and implementation details, visit the [HelbMe Documentation](https://docs.google.com/document/d/1ezQo0OXwnhEI-1s03rovepVqReC-UWWloP1huKE-dA0/edit?tab=t.0).
 
 ---
